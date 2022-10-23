@@ -6,127 +6,127 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MovieAnalyzer {
-  String dataset_Path;
+  String dataSetPath;
 
-  public static class movie {
-      String Poster_Link;
-      String Series_Title;
-      String Released_Year;
-      String Certificate;
-      String Runtime;
-      String Genre;
-      String IMDB_Rating;
-      String Overview;
-      String Meta_score;
-      String Director;
-      String Star1, Star2, Star3, Star4;
-      String No_of_Votes;
-      String Gross;
-      List<String> Star = new ArrayList<>();
+  public static class Movie {
+    String posterLink;
+    String seriesTitle;
+    String releasedYear;
+    String certificate;
+    String runtime;
+    String genre;
+    String imdbRating;
+    String overView;
+    String metaScore;
+    String director;
+    String star1, star2, star3, star4;
+    String noOfVotes;
+    String gross;
+    List<String> star = new ArrayList<>();
 
-      public movie(String _Poster_Link, String _Series_Title,
-                     String _Released_Year, String _Certificate, String _Runtime,
-                     String _Genre, String _IMDB_Rating, String _Overview, String _Meta_score,
-                     String _Director, String _Star1,
-                     String _Star2, String _Star3, String _Star4,
-                     String _No_of_Votes, String _Gross) {
-          Poster_Link = _Poster_Link;
-          Series_Title = _Series_Title;
-          Released_Year = _Released_Year;
-          Certificate = _Certificate;
-          Runtime = _Runtime;
-          Genre = _Genre;
-          IMDB_Rating = _IMDB_Rating;
-          Meta_score = _Meta_score;
-          Director = _Director;
-          Star1 = _Star1;
-          Star2 = _Star2;
-          Star3 = _Star3;
-          Star4 = _Star4;
-          No_of_Votes = _No_of_Votes;
-          Gross = _Gross;
-          Star.add(Star1);
-          Star.add(Star2);
-          Star.add(Star3);
-          Star.add(Star4);
-          String tmp = "";
-          for (int i = 0; i < _Series_Title.length(); ++i) {
-              if (_Series_Title.charAt(i) != '"') {
-                  tmp += _Series_Title.charAt(i);
-              }
-          }
-          Series_Title = tmp;
-          tmp = "";
+    public Movie(String _Poster_Link, String _Series_Title,
+                 String _Released_Year, String _Certificate, String _Runtime,
+                 String _Genre, String _IMDB_Rating, String _Overview, String _Meta_score,
+                 String _Director, String _Star1,
+                 String _Star2, String _Star3, String _Star4,
+                 String _No_of_Votes, String _Gross) {
+      posterLink = _Poster_Link;
+      seriesTitle = _Series_Title;
+      releasedYear = _Released_Year;
+      certificate = _Certificate;
+      runtime = _Runtime;
+      genre = _Genre;
+      imdbRating = _IMDB_Rating;
+      metaScore = _Meta_score;
+      director = _Director;
+      star1 = _Star1;
+      star2 = _Star2;
+      star3 = _Star3;
+      star4 = _Star4;
+      noOfVotes = _No_of_Votes;
+      gross = _Gross;
+      star.add(star1);
+      star.add(star2);
+      star.add(star3);
+      star.add(star4);
+      String tmp = "";
+      for (int i = 0; i < _Series_Title.length(); ++i) {
+        if (_Series_Title.charAt(i) != '"') {
+          tmp += _Series_Title.charAt(i);
+        }
+      }
+      seriesTitle = tmp;
+      tmp = "";
 
-          for (int i = 0; i < _Overview.length(); ++i) {
-              if (i == 0 || i == _Overview.length() - 1) {
-                  if (_Overview.charAt(i) != '"')
-                      tmp += _Overview.charAt(i);
-              } else
+      for (int i = 0; i < _Overview.length(); ++i) {
+        if (i == 0 || i == _Overview.length() - 1) {
+              if (_Overview.charAt(i) != '"')
                   tmp += _Overview.charAt(i);
-          }
-          Overview = tmp;
+          } else
+              tmp += _Overview.charAt(i);
       }
+      overView = tmp;
+    }
 
-      public int getReleased_Year() {
-          return Integer.parseInt(Released_Year);
-      }
+    public int getReleasedYear() {
+        return Integer.parseInt(releasedYear);
+    }
 
-      public String getGenre() {
-          return Genre;
-      }
+    public String getGenre() {
+        return genre;
+    }
 
-      public List<String> getStar() {
-          return Star;
-      }
+    public List<String> getStar() {
+        return star;
+    }
 
-      public int getOverview() {
-          return Overview.length();
-      }
+    public int getOverview() {
+        return overView.length();
+    }
 
-      public String getSeriesTitle() {
-          return Series_Title;
-      }
+    public String getSeriesTitle() {
+        return seriesTitle;
+    }
 
-      public int getRuntime() {
-          int num = 0;
-          for (int i = 0; i < Runtime.length(); ++i) {
-              if (!(Runtime.charAt(i) >= '0' && Runtime.charAt(i) <= '9')) break;
-              num = 10 * num + (Runtime.charAt(i) - '0');
-          }
-          return num;
-      }
+    public int getRuntime() {
+        int num = 0;
+        for (int i = 0; i < runtime.length(); ++i) {
+            if (!(runtime.charAt(i) >= '0' && runtime.charAt(i) <= '9')) break;
+            num = 10 * num + (runtime.charAt(i) - '0');
+        }
+        return num;
+    }
 
-      public float getRating() {
-          return Float.parseFloat(IMDB_Rating);
-      }
+    public float getRating() {
+        return Float.parseFloat(imdbRating);
+    }
 
-      public float getGross() {
-          if (Gross.equals("")) return 0.0f;
-          String tmp = "";
-          for (int i = 0; i < Gross.length(); ++i)
-              if (Gross.charAt(i) != ',' && Gross.charAt(i) != '"')
-                  tmp += Gross.charAt(i);
-          return Float.parseFloat(tmp);
-      }
-  }
+    public float getGross() {
+        if (gross.equals("")) return 0.0f;
+        String tmp = "";
+        for (int i = 0; i < gross.length(); ++i)
+            if (gross.charAt(i) != ',' && gross.charAt(i) != '"')
+                tmp += gross.charAt(i);
+        return Float.parseFloat(tmp);
+    }
+}
 
-  public Stream<movie> getStream(String dataset_path) throws IOException {
+  public Stream<Movie> getStream(String dataset_path) throws IOException {
       return Files.lines(Paths.get(dataset_path).toAbsolutePath())
               .map(l -> l.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)", -1))
               .skip(1)
-              .map(a -> new movie(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12],
+              .map(a -> new Movie(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12],
                       a[13], a[14], a[15]))
               ;
   }
 
   public MovieAnalyzer(String dataset_path) {
-      dataset_Path = dataset_path;
+      dataSetPath = dataset_path;
   }
   public Map<Integer, Integer> getMovieCountByYear() throws IOException {
-      Stream<movie> movieAnalyzer = getStream(dataset_Path);
-      Map<Integer, Long> movies = movieAnalyzer.filter(t -> !Objects.equals(t.Released_Year, ""))
-              .collect(Collectors.groupingBy(movie::getReleased_Year, Collectors.counting()));
+      Stream<Movie> movieAnalyzer = getStream(dataSetPath);
+      Map<Integer, Long> movies = movieAnalyzer.filter(t -> !Objects.equals(t.releasedYear, ""))
+              .collect(Collectors.groupingBy(Movie::getReleasedYear, Collectors.counting()));
       Map<Integer, Integer> s = new HashMap<>();
       for (Map.Entry<Integer, Long> entry : movies.entrySet()) {
             //System.out.println(entry.getKey()+" "+entry.getValue());
@@ -158,9 +158,9 @@ public class MovieAnalyzer {
   }
 
   public Map<String, Integer> getMovieCountByGenre() throws IOException {
-      Stream<movie> movieAnalyzer = getStream(dataset_Path);
-      Map<String, Long> movies = movieAnalyzer.filter(t -> !Objects.equals(t.Genre, ""))
-              .collect(Collectors.groupingBy(movie::getGenre, Collectors.counting()));
+      Stream<Movie> movieAnalyzer = getStream(dataSetPath);
+      Map<String, Long> movies = movieAnalyzer.filter(t -> !Objects.equals(t.genre, ""))
+              .collect(Collectors.groupingBy(Movie::getGenre, Collectors.counting()));
       Map<String, Integer> save = new TreeMap<String, Integer>();
       Map<String, Integer> result = new LinkedHashMap<String, Integer>();
       for (Map.Entry<String, Long> entry : movies.entrySet()) {
@@ -216,9 +216,9 @@ public class MovieAnalyzer {
   }
 
     public Map<List<String>, Integer> getCoStarCount() throws IOException {
-        Stream<movie> movieAnalyzer = getStream(dataset_Path);
-        Map<List<String>, Long> movies = movieAnalyzer.filter(t -> t.Star.size() != 0)
-                .collect(Collectors.groupingBy(movie::getStar, Collectors.counting()));
+        Stream<Movie> movieAnalyzer = getStream(dataSetPath);
+        Map<List<String>, Long> movies = movieAnalyzer.filter(t -> t.star.size() != 0)
+                .collect(Collectors.groupingBy(Movie::getStar, Collectors.counting()));
         Map<List<String>, Integer> save = new HashMap<>();
         for (Map.Entry<List<String>, Long> item : movies.entrySet()) {
             List<String> now = item.getKey();
@@ -250,18 +250,18 @@ public class MovieAnalyzer {
     public List<String> getTopMovies(int top_k, String by) throws IOException {
         List<String> ans = new ArrayList<>();
         if (by.equals("runtime")) {
-            Stream<movie> movieAnalyzer = getStream(dataset_Path);
-            List<movie> save = movieAnalyzer
-                    .filter(t -> !Objects.equals(t.Runtime, ""))
-                    .sorted(Comparator.comparing(movie::getRuntime).reversed().thenComparing(movie::getSeriesTitle)).collect(Collectors.toList());
+            Stream<Movie> movieAnalyzer = getStream(dataSetPath);
+            List<Movie> save = movieAnalyzer
+                    .filter(t -> !Objects.equals(t.runtime, ""))
+                    .sorted(Comparator.comparing(Movie::getRuntime).reversed().thenComparing(Movie::getSeriesTitle)).collect(Collectors.toList());
             for (int i = 0; i < top_k; ++i)
                 ans.add(save.get(i).getSeriesTitle());
             return ans;
         } else {
-            Stream<movie> movieAnalyzer = getStream(dataset_Path);
-            List<movie> save = movieAnalyzer
-                    .filter(t -> !Objects.equals(t.Overview, ""))
-                    .sorted(Comparator.comparing(movie::getOverview).reversed().thenComparing(movie::getSeriesTitle)).collect(Collectors.toList());
+            Stream<Movie> movieAnalyzer = getStream(dataSetPath);
+            List<Movie> save = movieAnalyzer
+                    .filter(t -> !Objects.equals(t.overView, ""))
+                    .sorted(Comparator.comparing(Movie::getOverview).reversed().thenComparing(Movie::getSeriesTitle)).collect(Collectors.toList());
             for (int i = 0; i < top_k; ++i) {
                 ans.add(save.get(i).getSeriesTitle());
                 //System.out.println(save.get(i).getSeriesTitle()+" "+save.get(i).getOverview());
@@ -273,11 +273,11 @@ public class MovieAnalyzer {
     public List<String> getTopStars(int top_k, String by) throws IOException {
         List<String> ans = new ArrayList<>();
         if (by.equals("rating")) {
-            Stream<movie> movieAnalyzer = getStream(dataset_Path);
+            Stream<Movie> movieAnalyzer = getStream(dataSetPath);
             Map<String, Double> rating = new HashMap<>();
             Map<String, Double> movie = new HashMap<>();
             Map<String, Double> avg = new HashMap<>();
-            List<movie> save = movieAnalyzer.collect(Collectors.toList());
+            List<Movie> save = movieAnalyzer.collect(Collectors.toList());
             for (int i = 0; i < save.size(); ++i) {
                 List<String> star = save.get(i).getStar();
                 for (int j = 0; j < star.size(); ++j) {
@@ -321,11 +321,11 @@ public class MovieAnalyzer {
             }
             return ans;
         } else {
-            Stream<movie> movieAnalyzer = getStream(dataset_Path);
+            Stream<Movie> movieAnalyzer = getStream(dataSetPath);
             Map<String, Float> rating = new HashMap<>();
             Map<String, Float> movie = new HashMap<>();
             Map<String, Double> avg = new HashMap<>();
-            List<movie> save = movieAnalyzer.collect(Collectors.toList());
+            List<Movie> save = movieAnalyzer.collect(Collectors.toList());
             for (int i = 0; i < save.size(); ++i) {
                 List<String> star = save.get(i).getStar();
                 for (int j = 0; j < star.size(); ++j) {
@@ -373,8 +373,8 @@ public class MovieAnalyzer {
     }
 
     public List<String> searchMovies(String genre, float min_rating, int max_runtime) throws IOException {
-        Stream<movie> movieAnalyzer = getStream(dataset_Path);
-        List<movie> save = movieAnalyzer.collect(Collectors.toList());
+        Stream<Movie> movieAnalyzer = getStream(dataSetPath);
+        List<Movie> save = movieAnalyzer.collect(Collectors.toList());
         List<String> ans = new ArrayList<>();
         for (int j = 0; j < save.size(); ++j) {
             String name = save.get(j).getGenre();
