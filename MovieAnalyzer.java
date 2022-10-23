@@ -266,7 +266,7 @@ public class MovieAnalyzer {
         List<String> ans= new ArrayList<>();
         if(by.equals("rating")){
             Stream <movie> movieAnalyzer=getStream(dataset_Path);
-            Map<String,Float> rating=new HashMap<>();
+            Map<String,Float> gross=new HashMap<>();
             Map<String,Float> movie=new HashMap<>();
             Map<String,Double> avg=new HashMap<>();
             List<movie> save=movieAnalyzer.collect(Collectors.toList());
@@ -281,13 +281,13 @@ public class MovieAnalyzer {
                         value+=1.0;
                         movie.put(star.get(j),value);
                     }
-                    if(!rating.containsKey(star.get(j))){
-                        rating.put(star.get(j),save.get(i).getRating());
+                    if(!gross.containsKey(star.get(j))){
+                        gross.put(star.get(j),save.get(i).getRating());
                     }
                     else{
-                        float value=rating.get(star.get(j));
+                        float value=gross.get(star.get(j));
                         value+=save.get(i).getRating();
-                        rating.put(star.get(j),value);
+                        gross.put(star.get(j),value);
                     }
                 }
             }
@@ -295,7 +295,7 @@ public class MovieAnalyzer {
                 List<String> star=save.get(i).getStar();
                 for(int j=0;j<star.size();++j) {
                     if (!avg.containsKey(star.get(j))) {
-                        avg.put(star.get(j),(double)(rating.get(star.get(j))/movie.get(star.get(j))));
+                        avg.put(star.get(j),(double)(gross.get(star.get(j))/movie.get(star.get(j))));
                     }
                 }
             }
