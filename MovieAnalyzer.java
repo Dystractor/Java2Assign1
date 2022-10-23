@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.lang.management.RuntimeMXBean;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -105,7 +104,7 @@ public class MovieAnalyzer {
                 .skip(1)
                 .map(a->new movie(a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8],a[9],a[10],a[11],a[12],
                         a[13],a[14],a[15]))
-        ;
+                ;
     }
     public MovieAnalyzer(String dataset_path){
         dataset_Path=dataset_path;
@@ -244,8 +243,8 @@ public class MovieAnalyzer {
         if(by.equals("runtime")){
             Stream <movie> movieAnalyzer=getStream(dataset_Path);
             List<movie> save=movieAnalyzer
-                         .filter(t->!Objects.equals(t.Runtime,""))
-                         .sorted(Comparator.comparing(movie::getRuntime).reversed().thenComparing(movie::getSeriesTitle)).collect(Collectors.toList());
+                    .filter(t->!Objects.equals(t.Runtime,""))
+                    .sorted(Comparator.comparing(movie::getRuntime).reversed().thenComparing(movie::getSeriesTitle)).collect(Collectors.toList());
             for(int i=0;i<top_k;++i)
                 ans.add(save.get(i).getSeriesTitle());
             return ans;
@@ -266,28 +265,28 @@ public class MovieAnalyzer {
         List<String> ans= new ArrayList<>();
         if(by.equals("rating")){
             Stream <movie> movieAnalyzer=getStream(dataset_Path);
-            Map<String,Float> gross=new HashMap<>();
-            Map<String,Float> movie=new HashMap<>();
+            Map<String,Double> rating=new HashMap<>();
+            Map<String,Double> movie=new HashMap<>();
             Map<String,Double> avg=new HashMap<>();
             List<movie> save=movieAnalyzer.collect(Collectors.toList());
             for(int i=0;i<save.size();++i){
                 List<String> star=save.get(i).getStar();
                 for(int j=0;j<star.size();++j){
                     if(!movie.containsKey(star.get(j))){
-                        movie.put(star.get(j),1.0f);
+                        movie.put(star.get(j),1.0);
                     }
                     else{
-                        float value=movie.get(star.get(j));
+                        Double value=movie.get(star.get(j));
                         value+=1.0;
                         movie.put(star.get(j),value);
                     }
-                    if(!gross.containsKey(star.get(j))){
-                        gross.put(star.get(j),save.get(i).getRating());
+                    if(!rating.containsKey(star.get(j))){
+                        rating.put(star.get(j), (double) save.get(i).getRating());
                     }
                     else{
-                        float value=gross.get(star.get(j));
+                        double value=rating.get(star.get(j));
                         value+=save.get(i).getRating();
-                        gross.put(star.get(j),value);
+                        rating.put(star.get(j),value);
                     }
                 }
             }
@@ -295,7 +294,7 @@ public class MovieAnalyzer {
                 List<String> star=save.get(i).getStar();
                 for(int j=0;j<star.size();++j) {
                     if (!avg.containsKey(star.get(j))) {
-                        avg.put(star.get(j),(double)(gross.get(star.get(j))/movie.get(star.get(j))));
+                        avg.put(star.get(j),(double)(rating.get(star.get(j))/movie.get(star.get(j))));
                     }
                 }
             }
@@ -311,7 +310,7 @@ public class MovieAnalyzer {
             });
             for(int i=0;i<top_k;++i) {
                 ans.add(list.get(i).getKey());
-                System.out.println(list.get(i).getKey()+" "+avg.get(list.get(i).getKey()));
+                //System.out.println(list.get(i).getKey()+" "+avg.get(list.get(i).getKey()));
             }
             return ans;
         }
@@ -404,7 +403,6 @@ public class MovieAnalyzer {
             }
         }
         Collections.sort(ans);
-
         return ans;
     }
 }
